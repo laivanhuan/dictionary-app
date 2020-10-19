@@ -1,0 +1,12 @@
+### IntelliJ Idea
+.idea/
+
+### Gradle template
+.gradle/
+build/
+
+### Maven template
+target/
+
+### macOS temp file
+.DS_store
