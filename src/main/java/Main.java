@@ -3,9 +3,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Word;
+import service.IWordService;
+import service.WordService;
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 
 public class Main extends Application {
 
@@ -18,9 +22,15 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    static IWordService wordService = new WordService();
 
     public static void main(String[] args) {
-        launch(args);
+        List<Word> list = wordService.findWordsNearMeaning("hell");
+        list.forEach(w -> w.printMeaning());
+
+//        Word w = wordService.findExactWord("hello");
+//        w.printMeaning();
+//        launch(args);
     }
 }
 

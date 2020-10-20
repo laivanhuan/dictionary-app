@@ -7,6 +7,18 @@
     <groupId>com.dqh.app</groupId>
     <artifactId>dictionary-app</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>
@@ -22,5 +34,6 @@
             <version>11</version>
             <type>pom</type>
         </dependency>
+
     </dependencies>
 </project>

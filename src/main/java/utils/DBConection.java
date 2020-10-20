@@ -6,31 +6,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConection {
-    private Connection conn = null;
-
-    private void connectSQLiteApp(){
+    public static Connection getConnection() {
         try {
             Class.forName("org.sqlite.JDBC");
             String dbURL = "jdbc:sqlite:src/main/resources/db/dict.db";
-            conn = DriverManager.getConnection(dbURL);
-            if (conn != null) {
-                System.out.println("Connected to the database");
-                DatabaseMetaData dm = conn.getMetaData();
-                System.out.println("Driver name: " + dm.getDriverName());
-                System.out.println("Driver version: " + dm.getDriverVersion());
-                System.out.println("Product name: " + dm.getDatabaseProductName());
-                System.out.println("Product version: " + dm.getDatabaseProductVersion());
-            }
+            Connection conn = DriverManager.getConnection(dbURL);
+            return conn;
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
+            return null;
         } catch (SQLException ex) {
             ex.printStackTrace();
+            return null;
         }
-    }
-
-    public Connection getConnection() {
-        connectSQLiteApp();
-        return conn;
     }
 
 }
