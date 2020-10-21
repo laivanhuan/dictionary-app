@@ -17,20 +17,20 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         URL url = new File("src/main/resources/view/sample.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setTitle("DHQ Dictionary");
+        primaryStage.setScene(new Scene(root, 968, 747));
         primaryStage.show();
     }
 
     static IWordService wordService = new WordService();
 
     public static void main(String[] args) {
-        List<Word> list = wordService.findWordsNearMeaning("hell");
-        list.forEach(w -> w.printMeaning());
+       // List<Word> list = wordService.findWordsNearMeaning("hell");
+        //list.forEach(w -> w.printMeaning());
 
 //        Word w = wordService.findExactWord("hello");
 //        w.printMeaning();
-//        launch(args);
+      launch(args);
     }
 }
 
