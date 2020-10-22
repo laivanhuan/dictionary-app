@@ -9,7 +9,7 @@ import com.jfoenix.controls.JFXTextArea;
 import javafx.fxml.FXML;
 import utils.APIGoogleTranslate;
 import utils.ProjectConfig;
-
+import dialog.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -21,9 +21,13 @@ public class GoogleTranslateController {
     @FXML
     private JFXTextArea translatedText;
 
-    public void setBackButton() throws IOException
-    {
-        ProjectConfig.primaryStage.setScene(PrimaryController.getScene());
+    public void setBackButton() throws IOException {
+        ConfirmDialog cancelConfirm = new ConfirmDialog();
+        boolean isConfirm = cancelConfirm.show("Back",
+                "Are you sure want to back?");
+        if (isConfirm) {
+            ProjectConfig.primaryStage.setScene(PrimaryController.getScene());
+        }
     }
 
     public void translate() {

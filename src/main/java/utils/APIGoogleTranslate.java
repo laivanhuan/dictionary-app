@@ -3,6 +3,7 @@ package utils;
 import java.io.IOException;
 
 import com.darkprograms.speech.translator.GoogleTranslate;
+import dialog.ErrorDialog;
 
 public class APIGoogleTranslate {
 
@@ -10,7 +11,8 @@ public class APIGoogleTranslate {
         try {
             return GoogleTranslate.translate("vi", text);
         } catch (IOException e) {
-            e.printStackTrace();
+            ErrorDialog error=new ErrorDialog();
+            error.show("Lỗi mạng","Vui lòng kết nối mạng để sử dụng");
         }
         return "";
     }

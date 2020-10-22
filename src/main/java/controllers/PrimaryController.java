@@ -18,10 +18,13 @@ import model.Word;
 import service.IWordService;
 import service.WordService;
 import utils.TextToSpeech;
+import dialog.*;
 
+import javax.xml.soap.Text;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -170,7 +173,6 @@ public class PrimaryController implements Initializable {
         Parent root = FXMLLoader.load(url);
         return new Scene(root);
     }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.initializeWordList();

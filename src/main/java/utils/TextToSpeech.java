@@ -1,9 +1,11 @@
 package utils;
 
 import java.io.IOException;
+import java.rmi.UnknownHostException;
 
 import com.darkprograms.speech.synthesiser.SynthesiserV2;
 
+import dialog.ErrorDialog;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
@@ -15,7 +17,8 @@ public class TextToSpeech {
                 AdvancedPlayer player = new AdvancedPlayer(synthesizer.getMP3Data(text));
                 player.play();
             } catch (IOException | JavaLayerException e) {
-                e.printStackTrace();
+                ErrorDialog error=new ErrorDialog();
+                error.show("Lỗi mạng","Vui lòng kết nối mạng để sử dụng");
             }
         });
         thread.setDaemon(false);
