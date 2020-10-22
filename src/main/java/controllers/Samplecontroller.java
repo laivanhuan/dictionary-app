@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import model.Word;
 import service.IWordService;
 import service.WordService;
+import utils.TextToSpeech;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -120,7 +121,7 @@ public class Samplecontroller implements Initializable {
         });
 
         btSpeak.setOnMouseClicked(event -> {
-
+            TextToSpeech.speak(eWord);
         });
 
         btAPIGoogleTrans.setOnMouseClicked(event -> {
