@@ -3,15 +3,15 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-
+import utils.ProjectConfig;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import model.Word;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class Samplecontroller implements Initializable {
+public class PrimaryController implements Initializable {
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -134,7 +134,11 @@ public class Samplecontroller implements Initializable {
         });
 
         btAPIGoogleTrans.setOnMouseClicked(event -> {
-
+            try {
+                setGoogleTranslateScene() ;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
 
     }
@@ -158,8 +162,13 @@ public class Samplecontroller implements Initializable {
 
         });
     }
-    public void setGoogleTranslateScene() {
-        
+    public void setGoogleTranslateScene() throws IOException {
+        ProjectConfig.primaryStage.setScene(GoogleTranslateController.getScene());
+    }
+    public static Scene getScene() throws IOException {
+        URL url = new File("src/main/resources/view/sample.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);
+        return new Scene(root);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.PrimaryController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -7,17 +8,23 @@ import utils.TextToSpeech;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.fxml.FXML;
 import utils.APIGoogleTranslate;
+import utils.ProjectConfig;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-public class GoogleTranslate {
+public class GoogleTranslateController {
     @FXML
     private JFXTextArea englishText;
 
     @FXML
     private JFXTextArea translatedText;
+
+    public void setBackButton() throws IOException
+    {
+        ProjectConfig.primaryStage.setScene(PrimaryController.getScene());
+    }
 
     public void translate() {
         String text = englishText.getText();
