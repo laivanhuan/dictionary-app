@@ -8,6 +8,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import model.Word;
 import service.IWordService;
 import service.WordService;
@@ -42,8 +44,10 @@ public class Samplecontroller implements Initializable {
 
     public ListView<String> lvWords;
 
-    public TextArea taVMeaning;
+//    public TextArea taVMeaning;
 
+    @FXML
+    public WebView taVMeaning;
     public Pane pnWarmingExit;
 
     public AnchorPane apMainScene;
@@ -54,25 +58,22 @@ public class Samplecontroller implements Initializable {
     private IWordService wordService = new WordService();
 
     public void setWord() {
-
+        WebEngine webEngine = taVMeaning.getEngine();
             String temp = word.getWord().substring(0, 1).toUpperCase()
                         + word.getWord().substring(1);
 
-            taVMeaning.setText("/" + word.getPronounce() +"/" + "\n" + word.getDescription());
+            webEngine.loadContent(word.getHtml());
+//            taVMeaning.setText("/" + word.getPronounce() +"/" + "\n" + word.getDescription());
             taEWord.setText(temp);
     }
 
     public void setNearWord() {
-        List<Word> listNearWord = new ArrayList<>();
-        listNearWord = wordService.findWordsNearMeaning(eWord);
-
-        String meassage = "Từ bạn muốn tìm là: \n";
+        List<Word> listNearWord = wordService.findWordsNearMeaning(eWord);
+        lvWords.getItems().clear();
 
         for (int i = 0; i < listNearWord.size(); ++i) {
-            meassage  += listNearWord.get(i).getWord();
+            lvWords.getItems().add(listNearWord.get(i).getWord());
         }
-
-        taVMeaning.setText(meassage);
     }
 
     public void initializeWordList() {
@@ -86,7 +87,7 @@ public class Samplecontroller implements Initializable {
         btSearch.setOnMouseClicked(event -> {
             eWord = tfSearchBox.getText();
             word = wordService.findExactWord(eWord);
-            if (word != null && !word.getWord().equals("")) {
+            if (word.getId() > 0  && !word.getWord().equals("")) {
                 this.setWord();
             }
             else {
@@ -137,7 +138,7 @@ public class Samplecontroller implements Initializable {
                 eWord = tfSearchBox.getText();
                 word = wordService.findExactWord(eWord);
 
-                if (word != null && !word.getWord().equals("")) {
+                if (word.getId() > -1 && !word.getWord().equals("")) {
                     this.setWord();
                 }
 
