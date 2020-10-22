@@ -8,8 +8,11 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.xerial:sqlite-jdbc:3.7.2" level="project" />
+    <orderEntry type="library" name="Maven: com.github.goxr3plus:java-google-speech-api:V2.1" level="project" />
+    <orderEntry type="library" name="Maven: com.github.axet:java-flac-encoder:0.3.8" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20150729" level="project" />
+    <orderEntry type="library" name="Maven: javazoom:jlayer:1.0.1" level="project" />
   </component>
 </module>
