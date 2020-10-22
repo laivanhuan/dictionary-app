@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox prefHeight="600.0" prefWidth="500.0" spacing="10.0" style="-fx-background-color: GREY;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GoogleTranslate">
+    <children>
+        <Pane prefHeight="590.0" prefWidth="381.0" HBox.hgrow="ALWAYS">
+            <children>
+                <FontAwesomeIconView glyphName="VOLUME_UP" layoutX="89.0" layoutY="386.0" onMouseClicked="#englishSpeak" pickOnBounds="true" size="30" translateX="100.0" translateY="100.0" wrappingWidth="28.0" />
+                <Text fill="WHITE" layoutX="11.0" layoutY="130.0" stroke="#00d0ff" strokeType="OUTSIDE" strokeWidth="0.0" text="English" textAlignment="CENTER" wrappingWidth="205.13671875">
+                    <font>
+                        <Font size="35.0" />
+                    </font>
+                </Text>
+                <JFXTextArea fx:id="englishText" layoutX="6.0" layoutY="160.0" onKeyTyped="#translate" prefHeight="300.0" prefWidth="230.0" style="-fx-background-color: #FFFFFFFF;">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </JFXTextArea>
+            </children>
+            <HBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin>
+        </Pane>
+        <Pane prefHeight="590.0" prefWidth="364.0" HBox.hgrow="ALWAYS">
+            <children>
+                <FontAwesomeIconView glyphName="VOLUME_UP" layoutX="94.0" layoutY="386.0" onMouseClicked="#translatedSpeak" pickOnBounds="true" size="30" translateX="100.0" translateY="100.0" wrappingWidth="28.0" />
+                <Text fill="WHITE" layoutX="3.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vietnamese" textAlignment="CENTER" wrappingWidth="205.13672187924385">
+                    <font>
+                        <Font size="35.0" />
+                    </font>
+                </Text>
+                <JFXTextArea fx:id="translatedText" layoutX="-9.0" layoutY="160.0" onKeyTyped="#translate" prefHeight="300.0" prefWidth="230.0" style="-fx-background-color: #FFFFFFFF;">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </JFXTextArea>
+            </children>
+            <HBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin>
+        </Pane>
+    </children>
+</HBox>
