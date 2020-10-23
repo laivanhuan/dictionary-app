@@ -10,11 +10,13 @@ import javafx.fxml.FXML;
 import utils.APIGoogleTranslate;
 import utils.ProjectConfig;
 import dialog.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
-public class GoogleTranslateController {
+public class GoogleTranslateController extends PrimaryController {
     @FXML
     private JFXTextArea englishText;
 
@@ -45,9 +47,14 @@ public class GoogleTranslateController {
         String text = translatedText.getText();
         TextToSpeech.speak(text);
     }
+
     public static Scene getScene() throws IOException {
         URL url = new File("src/main/resources/view/GoogleTranslate.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         return new Scene(root);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
     }
 }

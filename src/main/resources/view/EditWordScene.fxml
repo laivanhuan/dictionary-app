@@ -17,7 +17,7 @@
 <?import javafx.scene.web.HTMLEditor?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4594a4;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddWordController">
+<AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #4594a4;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EditWordController">
    <children>
       <ImageView layoutX="14.0" layoutY="10.0">
          <image>

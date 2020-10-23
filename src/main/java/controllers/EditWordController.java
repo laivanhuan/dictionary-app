@@ -1,34 +1,37 @@
 package controllers;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import dialog.*;
+import dialog.ConfirmDialog;
+import dialog.ErrorDialog;
+import dialog.InformationDialog;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.web.HTMLEditor;
 import utils.ProjectConfig;
 
-public class AddWordController extends PrimaryController {
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class EditWordController extends PrimaryController implements Initializable {
     @FXML
     private HTMLEditor htmlEditor;
 
     public void setSaveButton() throws IOException {
         ConfirmDialog confirm = new ConfirmDialog();
-        boolean isConfirm = confirm.show("Add New Word", "Bạn có chắc muốn thêm từ này không ?");
+        boolean isConfirm = confirm.show("Edit Word", "Bạn có chắc muốn sửa từ này không ?");
         if (isConfirm) {
-            boolean isSave = addWord();
+            boolean isSave = editWord();
             if (isSave) {
                 InformationDialog inform = new InformationDialog();
-                inform.show("Add New Word", "Đã thêm từ thành công !");
+                inform.show("Edit Word", "Đã sửa từ thành công !");
                 setPrimaryStage();
             } else {
                 ErrorDialog error = new ErrorDialog();
-                error.show("Add New Word", "Lỗi: Từ này đã có rồi :<");
+                error.show("Edit", "Có lỗi xảy ra. Vui lòng thực hiện lại");
             }
         }
     }
@@ -46,17 +49,22 @@ public class AddWordController extends PrimaryController {
     }
 
     // sua ham nay ho t :<
-    public boolean addWord() {
+    public boolean editWord() {
         return true;
     }
 
     public static Scene getScene() throws IOException {
-        URL url = new File("src/main/resources/view/AddWordScene.fxml").toURI().toURL();
+        URL url = new File("src/main/resources/view/EditWordScene.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         return new Scene(root);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.initializeWordList();
+        this.mouseClickedHandle();
+        this.keyPressedHandle();
+        String html = PrimaryController.word.getHtml();
+        htmlEditor.setHtmlText(html);
     }
 }

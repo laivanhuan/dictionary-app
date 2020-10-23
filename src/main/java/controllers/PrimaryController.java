@@ -64,7 +64,7 @@ public class PrimaryController implements Initializable {
     public AnchorPane apMainScene;
 
     private String eWord;
-    private Word word;
+    public static Word word;
     private List<Word> list = new ArrayList<>();
     private IWordService wordService = new WordService();
 
@@ -118,6 +118,11 @@ public class PrimaryController implements Initializable {
         });
 
         btEdit.setOnMouseClicked(event -> {
+            try {
+                setEditWordScene();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         });
 
@@ -177,6 +182,10 @@ public class PrimaryController implements Initializable {
 
     public void setAddWordScene() throws IOException {
         ProjectConfig.primaryStage.setScene(AddWordController.getScene());
+    }
+
+    public void setEditWordScene() throws IOException {
+        ProjectConfig.primaryStage.setScene(EditWordController.getScene());
     }
 
     @Override
