@@ -24,7 +24,7 @@ public class GoogleTranslateController {
     public void setBackButton() throws IOException {
         ConfirmDialog cancelConfirm = new ConfirmDialog();
         boolean isConfirm = cancelConfirm.show("Back",
-                "Are you sure want to back?");
+                "Bạn có chắc muốn quay lại ?");
         if (isConfirm) {
             ProjectConfig.primaryStage.setScene(PrimaryController.getScene());
         }

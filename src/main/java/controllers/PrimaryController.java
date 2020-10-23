@@ -70,12 +70,12 @@ public class PrimaryController implements Initializable {
 
     public void setWord() {
         WebEngine webEngine = taVMeaning.getEngine();
-            String temp = word.getWord().substring(0, 1).toUpperCase()
-                        + word.getWord().substring(1);
+        String temp = word.getWord().substring(0, 1).toUpperCase()
+                + word.getWord().substring(1);
 
-            webEngine.loadContent(word.getHtml());
+        webEngine.loadContent(word.getHtml());
 //            taVMeaning.setText("/" + word.getPronounce() +"/" + "\n" + word.getDescription());
-            taEWord.setText(temp);
+        taEWord.setText(temp);
     }
 
     public void setNearWord() {
@@ -98,10 +98,9 @@ public class PrimaryController implements Initializable {
         btSearch.setOnMouseClicked(event -> {
             eWord = tfSearchBox.getText();
             word = wordService.findExactWord(eWord);
-            if (word.getId() > 0  && !word.getWord().equals("")) {
+            if (word.getId() > 0 && !word.getWord().equals("")) {
                 this.setWord();
-            }
-            else {
+            } else {
                 this.setNearWord();
             }
 
@@ -113,9 +112,7 @@ public class PrimaryController implements Initializable {
 
             if (word != null && !word.getWord().equals("")) {
                 this.setWord();
-            }
-
-            else {
+            } else {
                 this.setNearWord();
             }
         });
@@ -129,7 +126,11 @@ public class PrimaryController implements Initializable {
         });
 
         btAdd.setOnMouseClicked(event -> {
-
+            try {
+                setAddWordScene();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
 
         btSpeak.setOnMouseClicked(event -> {
@@ -138,7 +139,7 @@ public class PrimaryController implements Initializable {
 
         btAPIGoogleTrans.setOnMouseClicked(event -> {
             try {
-                setGoogleTranslateScene() ;
+                setGoogleTranslateScene();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -155,9 +156,7 @@ public class PrimaryController implements Initializable {
 
                 if (word.getId() > -1 && !word.getWord().equals("")) {
                     this.setWord();
-                }
-
-                else {
+                } else {
                     this.setNearWord();
                 }
             }
@@ -165,14 +164,21 @@ public class PrimaryController implements Initializable {
 
         });
     }
+
     public void setGoogleTranslateScene() throws IOException {
         ProjectConfig.primaryStage.setScene(GoogleTranslateController.getScene());
     }
+
     public static Scene getScene() throws IOException {
         URL url = new File("src/main/resources/view/sample.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         return new Scene(root);
     }
+
+    public void setAddWordScene() throws IOException {
+        ProjectConfig.primaryStage.setScene(AddWordController.getScene());
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.initializeWordList();

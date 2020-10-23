@@ -18,7 +18,7 @@ public class TextToSpeech {
                 player.play();
             } catch (IOException | JavaLayerException e) {
                 ErrorDialog error=new ErrorDialog();
-                error.show("Lỗi mạng","Vui lòng kết nối mạng để sử dụng");
+                error.show("Lỗi mạng","Vui lòng kiểm tra lại mạng");
             }
         });
         thread.setDaemon(false);

@@ -12,7 +12,7 @@ public class APIGoogleTranslate {
             return GoogleTranslate.translate("vi", text);
         } catch (IOException e) {
             ErrorDialog error=new ErrorDialog();
-            error.show("Lỗi mạng","Vui lòng kết nối mạng để sử dụng");
+            error.show("Lỗi mạng","Vui lòng kiểm tra lại mạng");
         }
         return "";
     }
