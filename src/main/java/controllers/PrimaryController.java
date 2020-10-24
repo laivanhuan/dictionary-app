@@ -12,6 +12,8 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 import model.Word;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import service.IWordService;
 import service.WordService;
 import utils.TextToSpeech;
@@ -45,13 +47,12 @@ public class PrimaryController implements Initializable {
     public WebView taVMeaning;
 
     private String eWord;
-    public static Word word;
+    protected static Word word;
     private List<Word> list = new ArrayList<>();
-    private IWordService wordService = new WordService();
+    protected static IWordService wordService = new WordService();
 
     public void setWord() {
         WebEngine webEngine = taVMeaning.getEngine();
-
         webEngine.loadContent(word.getHtml());
     }
 
@@ -67,6 +68,7 @@ public class PrimaryController implements Initializable {
     }
 
     public void initializeWordList() {
+        lvWords.getItems().clear();
         list = wordService.findAll();
         for (int i = 0; i < list.size(); ++i) {
             lvWords.getItems().add(list.get(i).getWord());
@@ -79,7 +81,6 @@ public class PrimaryController implements Initializable {
             word = wordService.findExactWord(eWord);
             if (word.getId() > 0 && !word.getWord().equals("")) {
                 this.setWord();
-                lvWords.getItems().clear();
                 this.initializeWordList();
             } else {
                 this.setNearWord();
@@ -91,9 +92,8 @@ public class PrimaryController implements Initializable {
             eWord = lvWords.getSelectionModel().getSelectedItem();
             word = wordService.findExactWord(eWord);
 
-            if (word != null && !word.getWord().equals("")) {
+            if (word != null && word.getId() > 0 && !word.getWord().equals("")) {
                 this.setWord();
-                lvWords.getItems().clear();
                 this.initializeWordList();
             } else {
                 this.setNearWord();
@@ -115,6 +115,7 @@ public class PrimaryController implements Initializable {
 
         btAdd.setOnMouseClicked(event -> {
             try {
+                word = new Word();
                 setAddWordScene();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -142,7 +143,7 @@ public class PrimaryController implements Initializable {
                 eWord = tfSearchBox.getText();
                 word = wordService.findExactWord(eWord);
 
-                if (word.getId() > -1 && !word.getWord().equals("")) {
+                if (word.getId() > 0 && !word.getWord().equals("")) {
                     this.setWord();
                     lvWords.getItems().clear();
                     this.initializeWordList();
@@ -169,6 +170,20 @@ public class PrimaryController implements Initializable {
 
     public void setEditWordScene() throws IOException {
         ProjectConfig.primaryStage.setScene(EditWordController.getScene());
+    }
+
+    public static void updatePronounce(Document doc) {
+        Elements element = doc.getElementsByTag("h3");
+        word.setPronounce(element.text());
+    }
+
+    public static void updateWord(Document doc) {
+        Elements element = doc.getElementsByTag("h1");
+        word.setWord(element.text());
+    }
+
+    public static void updateDescription(Document doc) {
+        word.setDescription(doc.text());
     }
 
     @Override

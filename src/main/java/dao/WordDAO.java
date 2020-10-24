@@ -108,7 +108,7 @@ public class WordDAO implements IWordDAO {
             try {
                 PreparedStatement statement = conn.prepareStatement(sql);
                 statement.setLong(1, id);
-                statement.executeQuery();
+                statement.executeUpdate();
 
                 conn.close();
                 statement.close();
@@ -126,7 +126,7 @@ public class WordDAO implements IWordDAO {
     public boolean updateWord(Word word) {
         Connection conn = DBConection.getConnection();
         if (conn != null) {
-            String sql = "UPDATE av SET html=? , descripton=?, pronounce=?, word=? WHERE id = ?";
+            String sql = "UPDATE av SET html=? , description=?, pronounce=?, word=? WHERE id = ?";
             try {
                 PreparedStatement statement = conn.prepareStatement(sql);
                 statement.setLong(1, word.getId());
@@ -134,7 +134,7 @@ public class WordDAO implements IWordDAO {
                 statement.setString(2, word.getDescription());
                 statement.setString(3, word.getPronounce());
                 statement.setString(4, word.getWord());
-                statement.executeQuery();
+                statement.executeUpdate();
 
                 conn.close();
                 statement.close();
@@ -152,14 +152,14 @@ public class WordDAO implements IWordDAO {
     public boolean addNewWord(Word word) {
         Connection conn = DBConection.getConnection();
         if (conn != null) {
-            String sql = "INSERT INTO av (html, descripton, pronounce, word) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO av (html, description, pronounce, word) VALUES (?, ?, ?, ?)";
             try {
                 PreparedStatement statement = conn.prepareStatement(sql);
                 statement.setString(1, word.getHtml());
                 statement.setString(2, word.getDescription());
                 statement.setString(3, word.getPronounce());
                 statement.setString(4, word.getWord());
-                statement.executeQuery();
+                statement.executeUpdate();
 
                 conn.close();
                 statement.close();

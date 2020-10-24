@@ -11,11 +11,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.web.HTMLEditor;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import utils.ProjectConfig;
 
 public class AddWordController extends PrimaryController {
     @FXML
     private HTMLEditor htmlEditor;
+
+    private Document doc;
+    private String textHtml;
 
     public void setSaveButton() throws IOException {
         ConfirmDialog confirm = new ConfirmDialog();
@@ -45,8 +50,18 @@ public class AddWordController extends PrimaryController {
         ProjectConfig.primaryStage.setScene(PrimaryController.getScene());
     }
 
-    // sua ham nay ho t :<
     public boolean addWord() {
+        textHtml = htmlEditor.getHtmlText();
+        PrimaryController.word.setHtml(textHtml);
+        doc = Jsoup.parse(textHtml);
+
+        PrimaryController.updateWord(doc);
+        PrimaryController.updatePronounce(doc);
+        PrimaryController.updateDescription(doc);
+
+        wordService.addNewWord(word);
+        initializeWordList();
+
         return true;
     }
 

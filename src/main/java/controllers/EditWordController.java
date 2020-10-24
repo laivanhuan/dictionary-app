@@ -9,8 +9,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.web.HTMLEditor;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import utils.ProjectConfig;
 
+import javax.print.Doc;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -19,6 +25,9 @@ import java.util.ResourceBundle;
 public class EditWordController extends PrimaryController implements Initializable {
     @FXML
     private HTMLEditor htmlEditor;
+
+    private Document doc;
+    private String textHtml;
 
     public void setSaveButton() throws IOException {
         ConfirmDialog confirm = new ConfirmDialog();
@@ -48,8 +57,22 @@ public class EditWordController extends PrimaryController implements Initializab
         ProjectConfig.primaryStage.setScene(PrimaryController.getScene());
     }
 
-    // sua ham nay ho t :<
+    // cứu chỗ này, update mà sao nó ko vào đc database
     public boolean editWord() {
+        textHtml = htmlEditor.getHtmlText();
+        PrimaryController.word.setHtml(textHtml);
+        doc = Jsoup.parse(textHtml);
+
+        PrimaryController.updateWord(doc);
+        PrimaryController.updatePronounce(doc);
+        PrimaryController.updateDescription(doc);
+
+        wordService.updateWord(word);
+        initializeWordList();
+
+        System.out.println(PrimaryController.wordService.findExactWord(word.getWord()).getDescription());
+        System.out.println(word.getDescription());
+
         return true;
     }
 
@@ -70,10 +93,7 @@ public class EditWordController extends PrimaryController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.initializeWordList();
-        this.mouseClickedHandle();
-        this.keyPressedHandle();
-        String html = PrimaryController.word.getHtml();
-        htmlEditor.setHtmlText(html);
+        textHtml = PrimaryController.word.getHtml();
+        htmlEditor.setHtmlText(textHtml);
     }
 }
