@@ -1,5 +1,6 @@
 package controllers;
 
+import dialog.ConfirmDialog;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
+import javafx.stage.Stage;
 import model.Word;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -45,6 +47,7 @@ public class PrimaryController implements Initializable {
 
     @FXML
     public WebView taVMeaning;
+    protected Stage delStage = new Stage();
 
     private String eWord;
     protected static Word word;
@@ -78,6 +81,10 @@ public class PrimaryController implements Initializable {
     public void mouseClickedHandle() {
         btSearch.setOnMouseClicked(event -> {
             eWord = tfSearchBox.getText();
+            if (eWord != null && !eWord.equals("")) {
+                eWord.toLowerCase();
+            }
+
             word = wordService.findExactWord(eWord);
             if (word.getId() > 0 && !word.getWord().equals("")) {
                 this.setWord();
@@ -89,7 +96,7 @@ public class PrimaryController implements Initializable {
         });
 
         lvWords.setOnMouseClicked(event -> {
-            eWord = lvWords.getSelectionModel().getSelectedItem();
+            eWord = lvWords.getSelectionModel().getSelectedItem().toLowerCase();
             word = wordService.findExactWord(eWord);
 
             if (word != null && word.getId() > 0 && !word.getWord().equals("")) {
@@ -110,7 +117,11 @@ public class PrimaryController implements Initializable {
         });
 
         btDelete.setOnMouseClicked(event -> {
-
+            try {
+                setDeleteStage();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
 
         btAdd.setOnMouseClicked(event -> {
@@ -141,6 +152,10 @@ public class PrimaryController implements Initializable {
             KeyEvent ke = (KeyEvent) event;
             if (ke.getCode().equals(KeyCode.ENTER)) {
                 eWord = tfSearchBox.getText();
+                if (eWord != null && !eWord.equals("")) {
+                    eWord.toLowerCase();
+                }
+
                 word = wordService.findExactWord(eWord);
 
                 if (word.getId() > 0 && !word.getWord().equals("")) {
@@ -170,6 +185,12 @@ public class PrimaryController implements Initializable {
 
     public void setEditWordScene() throws IOException {
         ProjectConfig.primaryStage.setScene(EditWordController.getScene());
+    }
+
+    public void setDeleteStage() throws IOException {
+        Scene deleteScene = DeleteWordController.getDeleteScene();
+        delStage.setScene(deleteScene);
+        delStage.show();
     }
 
     public static void updatePronounce(Document doc) {

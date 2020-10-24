@@ -23,7 +23,7 @@ public class ProjectConfig {
     }
 
     static {
-        primaryStage.setTitle("QHD Dictionary");
+        primaryStage.setTitle("DHQ Dictionary");
         Image dictionary_icon = loadImage(ProjectConfig.dictionaryIconPath);
         primaryStage.getIcons().add(dictionary_icon);
     }

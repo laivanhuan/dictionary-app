@@ -12,11 +12,8 @@ import javafx.scene.web.HTMLEditor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import utils.ProjectConfig;
 
-import javax.print.Doc;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -28,6 +25,21 @@ public class EditWordController extends PrimaryController implements Initializab
 
     private Document doc;
     private String textHtml;
+
+    public static Scene getScene() throws IOException {
+        URL url = new File("src/main/resources/view/sample.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);
+
+        try {
+            url = new File("src/main/resources/view/EditWordScene.fxml").toURI().toURL();
+            root = FXMLLoader.load(url);
+
+        } catch (IOException e) {
+            ErrorDialog error = new ErrorDialog();
+            error.show("Error", "Bạn cần chọn 1 từ để chỉnh sửa!");
+        }
+        return new Scene(root);
+    }
 
     public void setSaveButton() throws IOException {
         ConfirmDialog confirm = new ConfirmDialog();
@@ -76,24 +88,12 @@ public class EditWordController extends PrimaryController implements Initializab
         return true;
     }
 
-    public static Scene getScene() throws IOException {
-        URL url = new File("src/main/resources/view/sample.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
-
-        try {
-            url = new File("src/main/resources/view/EditWordScene.fxml").toURI().toURL();
-            root = FXMLLoader.load(url);
-
-        } catch (IOException e) {
-            ErrorDialog error = new ErrorDialog();
-            error.show("Error", "Bạn cần chọn 1 từ để chỉnh sửa!");
-        }
-        return new Scene(root);
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         textHtml = PrimaryController.word.getHtml();
-        htmlEditor.setHtmlText(textHtml);
+        doc = Jsoup.parse(textHtml);
+        if (doc.text() != null && !doc.text().equals("")) {
+            htmlEditor.setHtmlText(textHtml);
+        }
     }
 }
