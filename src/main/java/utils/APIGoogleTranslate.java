@@ -11,7 +11,7 @@ public class APIGoogleTranslate {
         try {
             return GoogleTranslate.translate("vi", text);
         } catch (IOException e) {
-            ErrorDialog error=new ErrorDialog();
+            ErrorDialog error = new ErrorDialog();
             error.show("Lỗi mạng","Vui lòng kiểm tra lại mạng");
         }
         return "";

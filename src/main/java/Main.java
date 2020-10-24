@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.io.File;
 
+import utils.WifiConnect;
+
 public class Main extends Application {
 
     @Override

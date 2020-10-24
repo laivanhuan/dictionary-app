@@ -54,8 +54,17 @@ public class EditWordController extends PrimaryController implements Initializab
     }
 
     public static Scene getScene() throws IOException {
-        URL url = new File("src/main/resources/view/EditWordScene.fxml").toURI().toURL();
+        URL url = new File("src/main/resources/view/sample.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
+
+        try {
+            url = new File("src/main/resources/view/EditWordScene.fxml").toURI().toURL();
+            root = FXMLLoader.load(url);
+
+        } catch (IOException e) {
+            ErrorDialog error = new ErrorDialog();
+            error.show("Error", "Bạn cần chọn 1 từ để chỉnh sửa!");
+        }
         return new Scene(root);
     }
 

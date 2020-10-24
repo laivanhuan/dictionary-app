@@ -1,7 +1,6 @@
 package utils;
 
 import java.io.IOException;
-import java.rmi.UnknownHostException;
 
 import com.darkprograms.speech.synthesiser.SynthesiserV2;
 
@@ -17,8 +16,14 @@ public class TextToSpeech {
                 AdvancedPlayer player = new AdvancedPlayer(synthesizer.getMP3Data(text));
                 player.play();
             } catch (IOException | JavaLayerException e) {
-                ErrorDialog error=new ErrorDialog();
-                error.show("Lỗi mạng","Vui lòng kiểm tra lại mạng");
+                try {
+                    if (!WifiConnect.isAvailable()) {
+                        ErrorDialog error = new ErrorDialog();
+                        error.show("Lỗi mạng", "Vui lòng kiểm tra lại mạng");
+                    }
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         });
         thread.setDaemon(false);

@@ -1,10 +1,9 @@
 package controllers;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -15,7 +14,6 @@ import model.Word;
 import service.IWordService;
 import service.WordService;
 import utils.TextToSpeech;
-import utils.ProjectConfig;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,9 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class PrimaryController implements Initializable {
+public class Samplecontroller implements Initializable {
     @FXML
     public Button btSearch;
+
 
     public TextField tfSearchBox;
 
@@ -45,14 +44,13 @@ public class PrimaryController implements Initializable {
     public WebView taVMeaning;
 
     private String eWord;
-    public static Word word;
+    private Word word;
     private List<Word> list = new ArrayList<>();
     private IWordService wordService = new WordService();
 
     public void setWord() {
         WebEngine webEngine = taVMeaning.getEngine();
-
-        webEngine.loadContent(word.getHtml());
+            webEngine.loadContent(word.getHtml());
     }
 
     public void setNearWord() {
@@ -77,14 +75,14 @@ public class PrimaryController implements Initializable {
         btSearch.setOnMouseClicked(event -> {
             eWord = tfSearchBox.getText();
             word = wordService.findExactWord(eWord);
-            if (word.getId() > 0 && !word.getWord().equals("")) {
+            if (word != null && word.getId() > 0  && !word.getWord().equals("")) {
                 this.setWord();
                 lvWords.getItems().clear();
                 this.initializeWordList();
-            } else {
+            }
+            else {
                 this.setNearWord();
             }
-
         });
 
         lvWords.setOnMouseClicked(event -> {
@@ -95,17 +93,14 @@ public class PrimaryController implements Initializable {
                 this.setWord();
                 lvWords.getItems().clear();
                 this.initializeWordList();
-            } else {
+            }
+
+            else {
                 this.setNearWord();
             }
         });
 
         btEdit.setOnMouseClicked(event -> {
-            try {
-                setEditWordScene();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
         });
 
@@ -114,11 +109,7 @@ public class PrimaryController implements Initializable {
         });
 
         btAdd.setOnMouseClicked(event -> {
-            try {
-                setAddWordScene();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         });
 
         btSpeak.setOnMouseClicked(event -> {
@@ -126,11 +117,7 @@ public class PrimaryController implements Initializable {
         });
 
         btAPIGoogleTrans.setOnMouseClicked(event -> {
-            try {
-                setGoogleTranslateScene();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         });
 
     }
@@ -142,33 +129,22 @@ public class PrimaryController implements Initializable {
                 eWord = tfSearchBox.getText();
                 word = wordService.findExactWord(eWord);
 
-                if (word.getId() > -1 && !word.getWord().equals("")) {
+                if (word != null && word.getId() > 0 && !word.getWord().equals("")) {
                     this.setWord();
                     lvWords.getItems().clear();
                     this.initializeWordList();
-                } else {
+                }
+
+                else {
                     this.setNearWord();
                 }
             }
+
+
         });
     }
-
-    public void setGoogleTranslateScene() throws IOException {
-        ProjectConfig.primaryStage.setScene(GoogleTranslateController.getScene());
-    }
-
-    public static Scene getScene() throws IOException {
-        URL url = new File("src/main/resources/view/sample.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
-        return new Scene(root);
-    }
-
-    public void setAddWordScene() throws IOException {
-        ProjectConfig.primaryStage.setScene(AddWordController.getScene());
-    }
-
-    public void setEditWordScene() throws IOException {
-        ProjectConfig.primaryStage.setScene(EditWordController.getScene());
+    public void setGoogleTranslateScene() {
+        
     }
 
     @Override
