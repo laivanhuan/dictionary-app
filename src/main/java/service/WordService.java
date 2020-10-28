@@ -21,12 +21,12 @@ public class WordService implements IWordService {
 
     @Override
     public Word findExactWord(String keyword) {
-        return wordDAO.findExactWord(keyword);
+        return wordDAO.findExactWord(keyword.toUpperCase());
     }
 
     @Override
     public List<Word> findWordsNearMeaning(String keyword) {
-        keyword = "%" + String.join("%", keyword.split("")) + "%";
+        keyword = String.join("%", keyword.split("")) + "%";
         return wordDAO.findWordsNearMeaning(keyword);
     }
 

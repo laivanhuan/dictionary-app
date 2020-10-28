@@ -1,5 +1,6 @@
 package controllers;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -10,14 +11,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
 import javafx.scene.web.HTMLEditor;
-import org.jsoup.Jsoup;
+import model.Word;
 import org.jsoup.nodes.Document;
 import utils.ProjectConfig;
 
 public class AddWordController extends PrimaryController {
     @FXML
     private HTMLEditor htmlEditor;
+
+    @FXML
+    private TextArea tWord;
 
     private Document doc;
     private String textHtml;
@@ -52,17 +57,22 @@ public class AddWordController extends PrimaryController {
 
     public boolean addWord() {
         textHtml = htmlEditor.getHtmlText();
-        PrimaryController.word.setHtml(textHtml);
-        doc = Jsoup.parse(textHtml);
+        String textWord = tWord.getText();
+        Word word = new Word(textWord, textHtml, "", "");
 
-        PrimaryController.updateWord(doc);
-        PrimaryController.updatePronounce(doc);
-        PrimaryController.updateDescription(doc);
+        return wordService.addNewWord(word);
 
-        wordService.addNewWord(word);
-        initializeWordList();
-
-        return true;
+//        PrimaryController.word.setHtml(textHtml);
+//        doc = Jsoup.parse(textHtml);
+//
+//        PrimaryController.updateWord(doc);
+//        PrimaryController.updatePronounce(doc);
+//        PrimaryController.updateDescription(doc);
+//
+//        wordService.addNewWord(word);
+//        initializeWordList();
+//
+//        return true;
     }
 
     public static Scene getScene() throws IOException {

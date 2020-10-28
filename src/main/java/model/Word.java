@@ -10,8 +10,8 @@ public class Word {
     public Word() {
     }
 
-    public Word(long id, String word, String html, String description, String pronounce) {
-        this.id = id;
+    public Word(String word, String html, String description, String pronounce) {
+        this.id = 0;
         this.word = word;
         this.html = html;
         this.description = description;
@@ -59,8 +59,8 @@ public class Word {
     }
 
     public void printMeaning() {
-        String meaning = pronounce.equals("") ? word : word + " - " + pronounce;
-        System.out.println(meaning);
-        System.out.println(description);
+        System.out.println(id);
+        System.out.println(word);
+        System.out.println(html);
     }
 }

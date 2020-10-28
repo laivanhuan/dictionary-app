@@ -54,7 +54,7 @@ public class WordDAO implements IWordDAO {
         Word word = new Word();
         Connection conn = DBConection.getConnection();
         if (conn != null) {
-            String sql = "SELECT * FROM av WHERE word = ?";
+            String sql = "SELECT * FROM av WHERE UPPER(word) = ? LIMIT 1";
             try {
                 PreparedStatement statement = conn.prepareStatement(sql);
                 statement.setString(1, keyword);
@@ -82,7 +82,7 @@ public class WordDAO implements IWordDAO {
 
     @Override
     public List<Word> findWordsNearMeaning(String keyword) {
-        List<Word> listWord = new ArrayList<Word>();
+        List<Word> listWord = new ArrayList<>();
         Connection conn = DBConection.getConnection();
         if (conn != null) {
             String sql = "SELECT * FROM av WHERE word LIKE ?";
@@ -129,7 +129,7 @@ public class WordDAO implements IWordDAO {
             String sql = "UPDATE av SET html=? , description=?, pronounce=?, word=? WHERE id = ?";
             try {
                 PreparedStatement statement = conn.prepareStatement(sql);
-                statement.setLong(1, word.getId());
+                statement.setLong(5, word.getId());
                 statement.setString(1, word.getHtml());
                 statement.setString(2, word.getDescription());
                 statement.setString(3, word.getPronounce());

@@ -8,7 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
 import javafx.scene.web.HTMLEditor;
+import model.Word;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -22,6 +24,9 @@ import java.util.ResourceBundle;
 public class EditWordController extends PrimaryController implements Initializable {
     @FXML
     private HTMLEditor htmlEditor;
+
+    @FXML
+    private TextArea taEWord;
 
     private Document doc;
     private String textHtml;
@@ -69,23 +74,13 @@ public class EditWordController extends PrimaryController implements Initializab
         ProjectConfig.primaryStage.setScene(PrimaryController.getScene());
     }
 
-    // cứu chỗ này, update mà sao nó ko vào đc database
     public boolean editWord() {
+        Word word = PrimaryController.word;
         textHtml = htmlEditor.getHtmlText();
-        PrimaryController.word.setHtml(textHtml);
-        doc = Jsoup.parse(textHtml);
-
-        PrimaryController.updateWord(doc);
-        PrimaryController.updatePronounce(doc);
-        PrimaryController.updateDescription(doc);
-
-        wordService.updateWord(word);
-        initializeWordList();
-
-        System.out.println(PrimaryController.wordService.findExactWord(word.getWord()).getDescription());
-        System.out.println(word.getDescription());
-
-        return true;
+        word.setHtml(textHtml);
+        word.setWord(taEWord.getText());
+        word.printMeaning();
+        return wordService.updateWord(word);
     }
 
     @Override
@@ -94,6 +89,7 @@ public class EditWordController extends PrimaryController implements Initializab
         doc = Jsoup.parse(textHtml);
         if (doc.text() != null && !doc.text().equals("")) {
             htmlEditor.setHtmlText(textHtml);
+            taEWord.setText(PrimaryController.word.getWord());
         }
     }
 }
