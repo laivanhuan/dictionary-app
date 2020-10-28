@@ -36,7 +36,7 @@ public class WordDAO implements IWordDAO {
         List<Word> dictionary = new ArrayList<>();
         Connection conn = DBConection.getConnection();
         if (conn != null) {
-            String sql = "SELECT * FROM av";
+            String sql = "SELECT * FROM av LIMIT 100";
             try {
                 PreparedStatement statement = conn.prepareStatement(sql);
                 ResultSet resultSet = statement.executeQuery();
@@ -85,7 +85,7 @@ public class WordDAO implements IWordDAO {
         List<Word> listWord = new ArrayList<>();
         Connection conn = DBConection.getConnection();
         if (conn != null) {
-            String sql = "SELECT * FROM av WHERE word LIKE ?";
+            String sql = "SELECT * FROM av WHERE word LIKE ? ";
             try {
                 PreparedStatement statement = conn.prepareStatement(sql);
                 statement.setString(1, keyword);
