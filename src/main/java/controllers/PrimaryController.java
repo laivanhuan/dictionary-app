@@ -105,7 +105,6 @@ public class PrimaryController implements Initializable {
             word = wordService.findExactWord(eWord);
             if (word.getId() > 0 && !word.getWord().equals("")) {
                 this.setWord();
-//                this.initializeWordList();
             } else {
                 this.setNearWord();
             }
@@ -118,7 +117,6 @@ public class PrimaryController implements Initializable {
 
             if (word != null && word.getId() > 0 && !word.getWord().equals("")) {
                 this.setWord();
-//                this.initializeWordList();
             } else {
                 this.setNearWord();
             }

@@ -67,17 +67,6 @@ public class AddWordController extends PrimaryController {
         }
         return wordService.addNewWord(word);
 
-//        PrimaryController.word.setHtml(textHtml);
-//        doc = Jsoup.parse(textHtml);
-//
-//        PrimaryController.updateWord(doc);
-//        PrimaryController.updatePronounce(doc);
-//        PrimaryController.updateDescription(doc);
-//
-//        wordService.addNewWord(word);
-//        initializeWordList();
-//
-//        return true;
     }
 
     public static Scene getScene() throws IOException {
