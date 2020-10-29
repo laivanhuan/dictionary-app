@@ -42,6 +42,7 @@ public class PrimaryController implements Initializable {
     public Button btAPIGoogleTrans;
 
     public Button btSpeak;
+    public Button btBack;
 
     public ListView<String> lvWords;
 
@@ -57,6 +58,22 @@ public class PrimaryController implements Initializable {
     public void setWord() {
         WebEngine webEngine = taVMeaning.getEngine();
         webEngine.loadContent(word.getHtml());
+        List<Word> listNearWord = wordService.findWordsNearMeaning(eWord);
+        lvWords.getItems().clear();
+
+        if (listNearWord != null) {
+            for (int i=0;i<listNearWord.size();i++)
+            {
+                if(listNearWord.get(i).getWord().equals(eWord))
+                {
+                    lvWords.getItems().add(listNearWord.get(i).getWord());
+                    listNearWord.remove(i);
+                }
+            }
+            for (int i = 0; i < listNearWord.size(); ++i) {
+                lvWords.getItems().add(listNearWord.get(i).getWord());
+            }
+        }
     }
 
     public void setNearWord() {
@@ -192,19 +209,13 @@ public class PrimaryController implements Initializable {
         delStage.setScene(deleteScene);
         delStage.show();
     }
-
-    public static void updatePronounce(Document doc) {
-        Elements element = doc.getElementsByTag("h3");
-        word.setPronounce(element.text());
-    }
-
-    public static void updateWord(Document doc) {
-        Elements element = doc.getElementsByTag("h1");
-        word.setWord(element.text());
-    }
-
-    public static void updateDescription(Document doc) {
-        word.setDescription(doc.text());
+    public void setBackButton() throws IOException
+    {
+        ConfirmDialog confirm=new ConfirmDialog();
+        boolean isConfirm=confirm.show("Back","Bạn có muốn quay lại màn hình chính");
+        if(isConfirm) {
+            ProjectConfig.primaryStage.setScene(PrimaryController.getScene());
+        }
     }
 
     @Override

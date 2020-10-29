@@ -80,6 +80,10 @@ public class EditWordController extends PrimaryController implements Initializab
         word.setHtml(textHtml);
         word.setWord(taEWord.getText());
         word.printMeaning();
+        if(word.getId()<=0)
+        {
+            return false;
+        }
         return wordService.updateWord(word);
     }
 

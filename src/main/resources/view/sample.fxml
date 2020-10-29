@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -193,6 +195,20 @@
                            </graphic>
                         </Button>
                         <WebView fx:id="taVMeaning" layoutX="-3.0" layoutY="74.0" prefHeight="527.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0" />
+                        <JFXButton fx:id="btBack" buttonType="RAISED" layoutX="518.0" layoutY="74.0" onAction="#setBackButton" prefHeight="0.0" prefWidth="71.0" ripplerFill="#0bebe0" style="-fx-background-color: #4594a4;" text="Back" textAlignment="CENTER" textFill="#07d6f2">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView glyphName="REPLY" size="20" />
+                           </graphic>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
                      </children>
                   </AnchorPane>
                </children>
