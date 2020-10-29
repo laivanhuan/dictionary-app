@@ -4,6 +4,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import dialog.*;
@@ -59,7 +60,11 @@ public class AddWordController extends PrimaryController {
         textHtml = htmlEditor.getHtmlText();
         String textWord = tWord.getText();
         Word word = new Word(textWord, textHtml, "", "");
-
+        Word w= wordService.findExactWord(textWord);
+        if(w.getId() >0 )
+        {
+            return false;
+        }
         return wordService.addNewWord(word);
 
 //        PrimaryController.word.setHtml(textHtml);

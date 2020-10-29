@@ -2,6 +2,7 @@ package controllers;
 
 import dialog.ConfirmDialog;
 import dialog.ErrorDialog;
+import dialog.InformationDialog;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -42,6 +43,8 @@ public class DeleteWordController extends PrimaryController {
             }
 
             else if (cf.show("Confirm", "Bạn muốn xóa từ " + delWord + " ra khỏi từ điển?")) {
+                InformationDialog inform=new InformationDialog();
+                inform.show("Delete","Đã xóa thành công");
                 delStage.close();
                 delStage = null;
                 long id = wordService.findExactWord(delWord).getId();
